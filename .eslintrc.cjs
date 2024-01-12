@@ -29,7 +29,6 @@ module.exports = {
         max: 7,
       },
     ],
-    "new-parens": ["error"],
     "no-unneeded-ternary": ["error"],
     "no-whitespace-before-property": ["error"],
     "operator-assignment": ["error", "always"],
@@ -66,12 +65,12 @@ module.exports = {
     ],
     "arrow-body-style": ["error", "as-needed"],
     "arrow-spacing": ["error"],
-    "no-confusing-arrow": [
-      "error",
-      {
-        allowParens: true,
-      },
-    ],
+    // "no-confusing-arrow": [
+    //   "error",
+    //   {
+    //     allowParens: true,
+    //   },
+    // ],
     "no-useless-computed-key": ["error"],
     "no-useless-rename": ["error"],
     "object-shorthand": ["error", "always"],
