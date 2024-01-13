@@ -1,1 +1,1 @@
-export const Copyright = () => <div>Copyright</div>;
+export const Copyright = () => <p>© Koff, 2024</p>;

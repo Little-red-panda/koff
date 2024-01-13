@@ -1,0 +1,27 @@
+.phone {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.link {
+  outline: 1px solid transparent;
+  border-radius: 4px;
+
+  &:hover,
+  &:active {
+    color: #780096;
+  }
+
+  &:focus-visible {
+    color: #780096;
+    outline-color: #780096;
+  }
+}
