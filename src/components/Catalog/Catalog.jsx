@@ -1,11 +1,10 @@
 import { Container } from "../../views/Container/Container";
 import s from "./Catalog.module.scss";
 
-export const Catalog = (props) => {
-  const catalogList = props.catalog;
-  const catalogItems = catalogList.map((item, index) => (
+export const Catalog = ({ catalog }) => {
+  const catalogItems = catalog.map((item, index) => (
     <li key={`item_${index}`} className={s.item}>
-      <a className={s.link} href="#">
+      <a className={s.link} href={`/category?slug=${item}`}>
         {item}
       </a>
     </li>

@@ -3,7 +3,7 @@ import { CardItem } from "../CardItem/CardItem";
 import s from "./Goods.module.scss";
 
 export const Goods = () => {
-  const goodsItems = [...Array(12)].map((index) => (
+  const goodsItems = [...Array(12)].map((_, index) => (
     <li key={`item_${index}`}>
       <CardItem />
     </li>
