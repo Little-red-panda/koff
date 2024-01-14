@@ -4,6 +4,7 @@ import { fetchCategories } from "../../store/categories/categories.slice";
 import { Catalog } from "../../components/Catalog/Catalog";
 import { Goods } from "../../components/Goods/Goods";
 import { Loading } from "../../components/Loading/Loading";
+import { fetchCardsData } from "../../store/cards/cards.slice";
 
 export const Main = () => {
   const dispatch = useDispatch();
@@ -12,18 +13,26 @@ export const Main = () => {
     loading: loadingCategories,
     error: errorCategories,
   } = useSelector((state) => state.categories);
+  const {
+    data: dataCards,
+    loading: loadingCards,
+    error: errorCards,
+  } = useSelector((state) => state.cards);
 
   useEffect(() => {
     dispatch(fetchCategories());
+    dispatch(fetchCardsData());
   }, [dispatch]);
 
-  if (loadingCategories) return <Loading />;
-  if (errorCategories) return <div>Ошибка: {errorCategories}</div>;
+  if (loadingCategories || loadingCards) return <Loading />;
+  if (errorCategories || errorCards) {
+    return <div>Ошибка: {errorCategories}</div>;
+  }
 
   return (
     <main>
       <Catalog catalog={dataCategories} />
-      <Goods />
+      <Goods cards={dataCards} />
     </main>
   );
 };

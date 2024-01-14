@@ -1,12 +1,1 @@
-export const CATALOG = [
-  "Диваны",
-  "Шкафы",
-  "Стулья",
-  "Тумбы",
-  "Кровати",
-  "Столы",
-  "Комоды",
-  "Матрасы",
-  "Пуфики",
-  "Стеллажи",
-] as const;
+export const API_URL = "https://koff-api.vercel.app/";

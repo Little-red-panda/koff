@@ -1,30 +1,15 @@
+import { API_URL } from "../../const";
+import { formatPrice } from "../../helper/helper";
 import s from "./CardItem.module.scss";
 
-export const CardItem = () => (
+export const CardItem = ({ card }) => (
   <article className={s.card}>
     <a className={`${s.link} ${s.link_img}`} href="#">
-      <picture>
-        <source
-          media="(min-width: 820px)"
-          type="image/webp"
-          srcSet="img/armchair_desktop.png"
-        />
-        <source
-          media="(min-width: 580px)"
-          type="image/webp"
-          srcSet="img/armchair_tablet.png"
-        />
-        <source
-          media="(max-width: 579px)"
-          type="image/webp"
-          srcSet="img/armchair_mobile.png"
-        />
-        <img
-          src="img/armchair_mobile.png"
-          alt="Кресло с подлокотниками"
-          className={s.img}
-        />
-      </picture>
+      <img
+        src={API_URL + card.images[0]}
+        alt="Кресло с подлокотниками"
+        className={s.img}
+      />
       <button className={s.favorite}>
         <svg
           width="16"
@@ -45,10 +30,10 @@ export const CardItem = () => (
     <div className={s.info}>
       <h3 className={s.title}>
         <a className={s.link} href="#">
-          Кресло с подлокотниками
+          {card.name}
         </a>
       </h3>
-      <p className={s.price}>5 000 ₽</p>
+      <p className={s.price}>{formatPrice(card.price)}</p>
     </div>
     <button className={s.button}>В корзину</button>
   </article>
