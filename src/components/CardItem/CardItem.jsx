@@ -5,11 +5,7 @@ import s from "./CardItem.module.scss";
 export const CardItem = ({ card }) => (
   <article className={s.card}>
     <a className={`${s.link} ${s.link_img}`} href="#">
-      <img
-        src={API_URL + card.images[0]}
-        alt="Кресло с подлокотниками"
-        className={s.img}
-      />
+      <img src={API_URL + card.images[0]} alt={card.name} className={s.img} />
       <button className={s.favorite}>
         <svg
           width="16"
