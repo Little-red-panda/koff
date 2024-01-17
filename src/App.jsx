@@ -9,6 +9,7 @@ import { Catalog } from "./views/Catalog/Catalog";
 import { Goods } from "./views/Goods/Goods";
 import { Cart } from "./components/Cart/Cart";
 import { Card } from "./views/Card/Card";
+import { NotFound } from "./components/NotFound/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +84,18 @@ const router = createBrowserRouter([
         <main>
           <Catalog />
           <Goods />
+        </main>
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "*",
+    element: (
+      <>
+        <Header />
+        <main>
+          <NotFound />
         </main>
         <Footer />
       </>
