@@ -1,11 +1,12 @@
+import { Link } from "react-router-dom";
 import { API_URL } from "../../const";
 import { formatPrice } from "../../helper/helper";
 import s from "./CardItem.module.scss";
 
-export const CardItem = ({ card }) => (
+export const CardItem = ({ name, images: [image], price, id }) => (
   <article className={s.card}>
-    <a className={`${s.link} ${s.link_img}`} href="#">
-      <img src={API_URL + card.images[0]} alt={card.name} className={s.img} />
+    <Link className={`${s.link} ${s.link_img}`} to={`/product/${id}`}>
+      <img src={API_URL + image} alt={name} className={s.img} />
       <button className={s.favorite}>
         <svg
           width="16"
@@ -22,14 +23,14 @@ export const CardItem = ({ card }) => (
           />
         </svg>
       </button>
-    </a>
+    </Link>
     <div className={s.info}>
       <h3 className={s.title}>
-        <a className={s.link} href="#">
-          {card.name}
-        </a>
+        <Link className={s.link} to="#">
+          {name}
+        </Link>
       </h3>
-      <p className={s.price}>{formatPrice(card.price)}</p>
+      <p className={s.price}>{formatPrice(price)}</p>
     </div>
     <button className={s.button}>В корзину</button>
   </article>

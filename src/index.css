@@ -98,7 +98,31 @@ fieldset {
   margin: 0;
 }
 
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table__row {
+  border-bottom: 1px solid #eeeff2;
+}
+
+.table__field {
+  padding: 8px 0;
+  color: #969eae;
+}
+
+.table__value {
+  padding: 8px 0;
+  text-align: right;
+  color: #1c1c1c;
+}
+
 .visually-hidden {
   position: fixed;
   transform: scale(0);
+}
+
+.swiper {
+  height: 100%;
 }

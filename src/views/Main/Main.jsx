@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchCategories } from "../../store/categories/categories.slice";
 import { Catalog } from "../../components/Catalog/Catalog";
-import { Goods } from "../../components/Goods/Goods";
+import { Goods } from "../Goods/Goods";
 import { Loading } from "../../components/Loading/Loading";
 import { fetchCardsData } from "../../store/cards/cards.slice";
 
