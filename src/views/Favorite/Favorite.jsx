@@ -1,23 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
-import { CardItem } from "../../components/CardItem/CardItem";
 import { Container } from "../Container/Container";
-import s from "./Goods.module.scss";
+import s from "../Goods/Goods.module.scss";
 import { useEffect } from "react";
-import { fetchCardsData } from "../../store/cards/cards.slice";
 import { Loading } from "../../components/Loading/Loading";
-import { useSearchParams } from "react-router-dom";
+import { fetchFavorite } from "../../store/favorite/favorite.slice";
+import { CardItem } from "../../components/CardItem/CardItem";
 
-export const Goods = () => {
+export const Favorite = () => {
   const dispatch = useDispatch();
-  const [searchParam] = useSearchParams();
-  const category = searchParam.get("category");
-  const q = searchParam.get("q");
-
-  const { data, loading, error } = useSelector((state) => state.cards);
+  const { data, favoriteList, loading, error } = useSelector(
+    (state) => state.favorite,
+  );
 
   useEffect(() => {
-    dispatch(fetchCardsData({ category, q }));
-  }, [category, dispatch, q]);
+    dispatch(fetchFavorite(favoriteList));
+  }, [dispatch, favoriteList]);
 
   if (loading || !data) return <Loading />;
   if (error) {
@@ -31,8 +28,8 @@ export const Goods = () => {
   return (
     <section className={s.goods}>
       <Container>
-        <h2 className={`${s.title} visually-hidden`}>Список товаров</h2>
-        {data.length ? (
+        <h2 className={s.title}>Избранное</h2>
+        {data.length && favoriteList.length > 0 ? (
           <>
             <ul className={s.list}>
               {data.map((item) => (
@@ -43,7 +40,7 @@ export const Goods = () => {
             </ul>
           </>
         ) : (
-          <p>По вашему запросу ничего не найдено</p>
+          <p>Добавьте товары в избранное</p>
         )}
       </Container>
     </section>
