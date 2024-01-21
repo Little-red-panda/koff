@@ -12,18 +12,14 @@ import { formatPrice } from "../../helper/helper";
 export const Card = () => {
   const { productId } = useParams();
 
-  const {
-    data: { article, name, price, characteristics, images },
-    loading,
-    error,
-  } = useSelector((state) => state.card);
+  const { data, loading, error } = useSelector((state) => state.card);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCardData(productId));
   }, [dispatch, productId]);
 
-  if (loading) return <Loading />;
+  if (loading || !data) return <Loading />;
   if (error) {
     return <div>Ошибка: {error}</div>;
   }
@@ -31,25 +27,24 @@ export const Card = () => {
   return (
     <section className={s.card}>
       <Container className={s.container}>
-        <h2 className={s.title}>{name}</h2>
+        <h2 className={s.title}>{data.name}</h2>
         <div className={s.picture}>
-          {images && <Slider images={images} name={name} />}
+          <Slider images={data.images} name={data.name} />
         </div>
         <div className={s.info}>
-          <p className={s.price}>{formatPrice(price)}</p>
-          <p className={s.article}>арт. {article}</p>
+          <p className={s.price}>{formatPrice(data.price)}</p>
+          <p className={s.article}>арт. {data?.article}</p>
 
           <div className={s.characteristics}></div>
           <h3 className={s.characteristicsTitle}>Общие характеристики</h3>
           <table className={`${s.characteristicsTable} table`}>
             <tbody>
-              {characteristics &&
-                Object.entries(characteristics).map(([i, [type, value]]) => (
-                  <tr className="table__row" key={i}>
-                    <td className="table__field">{type}</td>
-                    <td className="table__value">{value}</td>
-                  </tr>
-                ))}
+              {data.characteristics.map(([type, value], i) => (
+                <tr className="table__row" key={i}>
+                  <td className="table__field">{type}</td>
+                  <td className="table__value">{value}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
           <div className={s.btns}>

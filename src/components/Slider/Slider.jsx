@@ -5,7 +5,6 @@ import s from "./Slider.module.scss";
 import { API_URL } from "../../const";
 
 export const Slider = ({ images, name }) => {
-  console.log("images: ", images);
   const [mainSwiper, setMainSwiper] = useState(null);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
@@ -17,7 +16,7 @@ export const Slider = ({ images, name }) => {
           thumbs={{ swiper: thumbsSwiper }}
           onSwiper={setMainSwiper}
           spaceBetween={10}>
-          {Object.entries(images).map(([i, image]) => (
+          {images?.map((image, i) => (
             <SwiperSlide key={i} className={s.slide}>
               <img className={s.image} src={API_URL + image} alt={name} />
             </SwiperSlide>
@@ -80,7 +79,7 @@ export const Slider = ({ images, name }) => {
           watchSlidesProgress
           spaceBetween={14}
           slidesPerView={4}>
-          {Object.entries(images).map(([i, image]) => (
+          {images?.map((image, i) => (
             <SwiperSlide key={i} className={s.slideThumb}>
               <img className={s.imgThumb} src={API_URL + image} alt={name} />
             </SwiperSlide>

@@ -6,22 +6,15 @@ import { fetchCategories } from "../../store/categories/categories.slice";
 import { Loading } from "../../components/Loading/Loading";
 import { Link } from "react-router-dom";
 
-export const Catalog = ({ catalog }) => {
+export const Catalog = () => {
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector((state) => state.categories);
 
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
-  const catalogItems = data.map((item, index) => (
-    <li key={`item_${index}`} className={s.item}>
-      <Link className={s.link} to={`/category?slug=${item}`}>
-        {item}
-      </Link>
-    </li>
-  ));
 
-  if (loading) return <Loading />;
+  if (loading || !data) return <Loading />;
   if (error) {
     return <div>Ошибка: {error}</div>;
   }
@@ -29,7 +22,15 @@ export const Catalog = ({ catalog }) => {
   return (
     <Container className={s.container}>
       <nav className={s.catalog}>
-        <ul className={s.list}>{catalogItems}</ul>
+        <ul className={s.list}>
+          {data.map((item, index) => (
+            <li key={`item_${index}`} className={s.item}>
+              <Link className={s.link} to={`/category?slug=${item}`}>
+                {item}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </nav>
     </Container>
   );

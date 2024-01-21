@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { fetchCardsData } from "../../store/cards/cards.slice";
 import { Loading } from "../../components/Loading/Loading";
 
-export const Goods = ({ cards }) => {
+export const Goods = () => {
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector((state) => state.cards);
 
@@ -14,7 +14,7 @@ export const Goods = ({ cards }) => {
     dispatch(fetchCardsData());
   }, [dispatch]);
 
-  if (loading) return <Loading />;
+  if (loading || !data) return <Loading />;
   if (error) {
     return <div>Ошибка: {error}</div>;
   }
