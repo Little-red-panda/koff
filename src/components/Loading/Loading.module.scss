@@ -1,5 +1,4 @@
 .wrap {
-  flex-grow: 1;
   width: 100vw;
   height: 100%;
   display: flex;
@@ -8,6 +7,7 @@
 }
 
 .spinner {
+  margin-top: 20px;
   height: 50px;
   width: 50px;
   border-left: 3px solid #780096;
