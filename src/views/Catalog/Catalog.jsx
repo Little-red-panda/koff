@@ -10,7 +10,6 @@ import { Link, useSearchParams } from "react-router-dom";
 export const Catalog = () => {
   const [searchParam] = useSearchParams();
   const currentCatalogItem = searchParam.get("category");
-  console.log("currentCatalogItem: ", currentCatalogItem);
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector((state) => state.categories);
 
