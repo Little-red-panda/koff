@@ -6,17 +6,20 @@ import { useEffect } from "react";
 import { fetchCardsData } from "../../store/cards/cards.slice";
 import { Loading } from "../../components/Loading/Loading";
 import { useLocation, useSearchParams } from "react-router-dom";
+import { Pagination } from "../../components/Pagination/Pagination";
 
 export const Goods = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-
   const [searchParam] = useSearchParams();
+  const { data, loading, error, pagination } = useSelector(
+    (state) => state.cards,
+  );
+  const favoriteList = useSelector((state) => state.favorite.favoriteList);
+
   const category = searchParam.get("category");
   const q = searchParam.get("q");
-
-  const { data, loading, error } = useSelector((state) => state.cards);
-  const favoriteList = useSelector((state) => state.favorite.favoriteList);
+  const page = searchParam.get("page");
 
   const isFavoriteScreen = location.pathname === "/favorite";
   const isSearchScreen = location.pathname === "/search";
@@ -30,16 +33,16 @@ export const Goods = () => {
 
   useEffect(() => {
     if (isFavoriteScreen) {
-      dispatch(fetchCardsData({ list: favoriteList.join(",") }));
+      dispatch(fetchCardsData({ list: favoriteList.join(","), page }));
     }
     return;
-  }, [dispatch, favoriteList, isFavoriteScreen]);
+  }, [dispatch, favoriteList, isFavoriteScreen, page]);
 
   useEffect(() => {
     if (!isFavoriteScreen) {
-      dispatch(fetchCardsData({ category, q }));
+      dispatch(fetchCardsData({ category, q, page }));
     }
-  }, [category, dispatch, isFavoriteScreen, q]);
+  }, [category, dispatch, isFavoriteScreen, page, q]);
 
   if (loading || !data) return <Loading />;
   if (error) {
@@ -67,6 +70,7 @@ export const Goods = () => {
                 </li>
               ))}
             </ul>
+            {pagination && <Pagination pagination={pagination} />}
           </>
         ) : (
           <p>По вашему запросу ничего не найдено</p>

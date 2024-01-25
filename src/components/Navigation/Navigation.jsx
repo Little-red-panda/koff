@@ -1,9 +1,18 @@
 import { Link } from "react-router-dom";
 import s from "./Navigation.module.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchCart } from "../../store/cart/cart.slice";
 
 export const Navigation = () => {
+  const dispatch = useDispatch();
   const { favoriteList } = useSelector((state) => state.favorite);
+  const { totalCount } = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, [dispatch]);
+
   return (
     <nav className={s.navigation}>
       <Link className={s.link} to="/favorite">
@@ -27,7 +36,7 @@ export const Navigation = () => {
       </Link>
       <Link className={s.link} to="/cart">
         <span className={s.text}>Корзина</span>
-        <span>(2)</span>
+        {totalCount > 0 && <span>{`(${totalCount})`}</span>}
         <span className={s.icon}>
           <svg
             width="16"

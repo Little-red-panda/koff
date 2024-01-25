@@ -7,7 +7,7 @@ import { Loading } from "./components/Loading/Loading";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Catalog } from "./views/Catalog/Catalog";
 import { Goods } from "./views/Goods/Goods";
-import { Cart } from "./components/Cart/Cart";
+import { Cart } from "./views/Cart/Cart";
 import { Card } from "./views/Card/Card";
 import { NotFound } from "./components/NotFound/NotFound";
 

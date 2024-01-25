@@ -7,15 +7,15 @@ import { fetchCardData } from "../../store/card/card.slice";
 import { Container } from "../Container/Container";
 import { Slider } from "../../components/Slider/Slider";
 import { Loading } from "../../components/Loading/Loading";
-import { formatPrice } from "../../helper/helper";
-import { FavoriteButton } from "../../components/Favorite/FavoriteButton";
+import { FavoriteButton } from "../../components/FavoriteButton/FavoriteButton";
+import { CartButton } from "../../components/CartButton/CartButton";
 
 export const Card = () => {
   const { productId } = useParams();
-
   const { data, loading, error } = useSelector((state) => state.card);
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchCardData(productId));
   }, [dispatch, productId]);
@@ -37,7 +37,7 @@ export const Card = () => {
           <Slider images={data.images} name={data.name} />
         </div>
         <div className={s.info}>
-          <p className={s.price}>{formatPrice(data.price)}</p>
+          <p className={s.price}>{data.price.toLocaleString()}&nbsp;₽</p>
           <p className={s.article}>арт. {data?.article}</p>
 
           <div className={s.characteristics}></div>
@@ -53,7 +53,7 @@ export const Card = () => {
             </tbody>
           </table>
           <div className={s.btns}>
-            <button className={s.btn}>Купить</button>
+            <CartButton className={s.btn} id={data.id} />
             <FavoriteButton className={s.like} id={data.id} />
           </div>
         </div>

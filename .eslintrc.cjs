@@ -160,16 +160,16 @@ module.exports = {
         const: "never",
       },
     ],
-    "operator-linebreak": ["error", "after"],
+    // "operator-linebreak": ["error", "after"],
     "padded-blocks": ["error", "never"],
-    "quote-props": ["error", "consistent"],
-    quotes: [
-      "error",
-      "double",
-      {
-        allowTemplateLiterals: true,
-      },
-    ],
+    // "quote-props": ["error", "consistent"],
+    // quotes: [
+    //   "error",
+    //   "double",
+    //   {
+    //     allowTemplateLiterals: true,
+    //   },
+    // ],
     semi: "error",
     "semi-spacing": "error",
     "space-before-blocks": "error",
