@@ -50,6 +50,32 @@ export const addProductToCart = createAsyncThunk(
   },
 );
 
+export const updateProductToCart = createAsyncThunk(
+  "cart/updateProductToCart",
+  async (productData, { getState, rejectWithValue }) => {
+    const state = getState();
+    const token = state.auth.accessToken;
+
+    try {
+      const response = await fetch(`${API_URL}api/cart/products`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(productData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Не удалось обновить товар в корзине!");
+      }
+      return await response.json();
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
+
 export const removeProductFromCart = createAsyncThunk(
   "cart/removeProductFromCart",
   async (productId, { getState, rejectWithValue }) => {
@@ -104,7 +130,7 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.loadingFetch = false;
-        state.error = action.error.message;
+        state.error = action.payload;
       })
 
       .addCase(addProductToCart.pending, (state) => {
@@ -112,14 +138,21 @@ const cartSlice = createSlice({
         state.error = null;
       })
       .addCase(addProductToCart.fulfilled, (state, action) => {
-        state.products.push(action.payload.product);
+        state.products.push({
+          ...action.payload.product,
+          quantity: action.payload.productCart.quantity,
+        });
         state.totalCount = action.payload.totalCount;
+        state.totalPrice = state.products.reduce(
+          (acc, item) => item.price * item.quantity + acc,
+          0,
+        );
         state.loadingAdd = false;
         state.error = null;
       })
       .addCase(addProductToCart.rejected, (state, action) => {
         state.loadingAdd = false;
-        state.error = action.error.message;
+        state.error = action.payload;
       })
 
       .addCase(removeProductFromCart.pending, (state) => {
@@ -131,12 +164,39 @@ const cartSlice = createSlice({
           ({ id }) => id !== action.payload.id,
         );
         state.totalCount = action.payload.totalCount;
+        state.totalPrice = state.products.reduce(
+          (acc, item) => item.price * item.quantity + acc,
+          0,
+        );
         state.loadingRemove = false;
         state.error = null;
       })
       .addCase(removeProductFromCart.rejected, (state, action) => {
         state.loadingRemove = false;
-        state.error = action.error.message;
+        state.error = action.payload;
+      })
+
+      .addCase(updateProductToCart.pending, (state) => {
+        state.loadingUpdate = true;
+        state.error = null;
+      })
+      .addCase(updateProductToCart.fulfilled, (state, action) => {
+        state.products.map((item) => {
+          if (item.id === action.payload.productCart.productId) {
+            item.quantity = action.payload.productCart.quantity;
+          }
+          return item;
+        });
+        state.totalPrice = state.products.reduce(
+          (acc, item) => item.price * item.quantity + acc,
+          0,
+        );
+        state.loadingUpdate = false;
+        state.error = null;
+      })
+      .addCase(updateProductToCart.rejected, (state, action) => {
+        state.loadingUpdate = false;
+        state.error = action.payload;
       });
   },
 });

@@ -18,10 +18,18 @@ export const Cart = () => {
   return (
     <section className={s.cart}>
       <Container className={s.container}>
-        <h2 className={s.title}>Корзина</h2>
-        <CartProducts products={products}></CartProducts>
-        <CartPlace totalPrice={totalPrice} totalCount={totalCount}></CartPlace>
-        <CartForm></CartForm>
+        {totalCount === 0 ? (
+          <h2 className={s.title}>Корзина пуста</h2>
+        ) : (
+          <>
+            <h2 className={s.title}>Корзина</h2>
+            <CartProducts products={products}></CartProducts>
+            <CartPlace
+              totalPrice={totalPrice}
+              totalCount={totalCount}></CartPlace>
+            <CartForm></CartForm>
+          </>
+        )}
       </Container>
     </section>
   );

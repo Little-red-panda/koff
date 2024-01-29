@@ -8,7 +8,7 @@ export const CartButton = ({ className, id }) => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.cart);
 
-  const hasInCart = products.some((product) => product.id === id);
+  const hasInCart = products.find((product) => product.id === id);
 
   const handleCartClick = () => {
     if (hasInCart) {
