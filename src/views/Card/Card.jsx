@@ -3,7 +3,7 @@ import s from "./Card.module.scss";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCardData } from "../../store/card/card.slice";
+import { clearCardData, fetchCardData } from "../../store/card/card.slice";
 import { Container } from "../Container/Container";
 import { Slider } from "../../components/Slider/Slider";
 import { Loading } from "../../components/Loading/Loading";
@@ -18,6 +18,10 @@ export const Card = () => {
 
   useEffect(() => {
     dispatch(fetchCardData(productId));
+
+    return () => {
+      dispatch(clearCardData());
+    };
   }, [dispatch, productId]);
 
   if (loading || !data) return <Loading />;

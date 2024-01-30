@@ -78,6 +78,7 @@
 }
 
 .textarea {
+  width: 100%;
   min-height: 120px;
   padding: 12px 14px;
   border-radius: 4px;
@@ -88,7 +89,9 @@
   &::placeholder {
     color: #969eae;
   }
+}
 
+.textareaLabel {
   @media (min-width: 580px) {
     grid-column: 1/-1;
   }
@@ -165,3 +168,8 @@
     background-color: #cccccc;
   }
 }
+
+.error {
+  color: red;
+}
+

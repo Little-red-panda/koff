@@ -35,7 +35,13 @@ const initialState = {
 const cardSlice = createSlice({
   name: "card",
   initialState,
-  reducers: {},
+  reducers: {
+    clearCardData: (state) => {
+      state.data = null;
+      state.loading = false;
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCardData.pending, (state) => {
@@ -54,4 +60,5 @@ const cardSlice = createSlice({
   },
 });
 
+export const { clearCardData } = cardSlice.actions;
 export default cardSlice.reducer;

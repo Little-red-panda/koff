@@ -10,6 +10,8 @@ import { Goods } from "./views/Goods/Goods";
 import { Cart } from "./views/Cart/Cart";
 import { Card } from "./views/Card/Card";
 import { NotFound } from "./components/NotFound/NotFound";
+import { Order } from "./components/Order/Order";
+import { Breadcrumbs } from "./components/Breadcrumbs/Breadcrumbs";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,7 @@ const router = createBrowserRouter([
         <Header />
         <main>
           <Catalog />
+          <Breadcrumbs />
           <Goods />
         </main>
         <Footer />
@@ -45,6 +48,7 @@ const router = createBrowserRouter([
         <Header />
         <main>
           <Catalog />
+          <Breadcrumbs />
           <Card />
         </main>
         <Footer />
@@ -84,6 +88,18 @@ const router = createBrowserRouter([
         <main>
           <Catalog />
           <Goods />
+        </main>
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/order/:orderId",
+    element: (
+      <>
+        <Header />
+        <main>
+          <Order />
         </main>
         <Footer />
       </>
