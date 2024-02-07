@@ -7,6 +7,7 @@ import { fetchCardsData } from "../../store/cards/cards.slice";
 import { Loading } from "../../components/Loading/Loading";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { Pagination } from "../../components/Pagination/Pagination";
+import { ErrorScreen } from "../../components/ErrorScreen/ErrorScreen";
 
 export const Goods = () => {
   const dispatch = useDispatch();
@@ -46,11 +47,7 @@ export const Goods = () => {
 
   if (loading || !data) return <Loading />;
   if (error) {
-    return (
-      <Container>
-        <div>Ошибка: {error}</div>
-      </Container>
-    );
+    return <ErrorScreen error={error} />;
   }
 
   return (

@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { fetchCategories } from "../../store/categories/categories.slice";
 import { Loading } from "../../components/Loading/Loading";
 import { Link, useSearchParams } from "react-router-dom";
+import { ErrorScreen } from "../../components/ErrorScreen/ErrorScreen";
 
 export const Catalog = () => {
   const [searchParam] = useSearchParams();
@@ -19,11 +20,7 @@ export const Catalog = () => {
 
   if (loading || !data) return <Loading />;
   if (error) {
-    return (
-      <Container>
-        <div>Ошибка: {error}</div>
-      </Container>
-    );
+    return <ErrorScreen error={error} />;
   }
 
   return (

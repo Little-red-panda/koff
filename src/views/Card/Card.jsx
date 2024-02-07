@@ -9,6 +9,7 @@ import { Slider } from "../../components/Slider/Slider";
 import { Loading } from "../../components/Loading/Loading";
 import { FavoriteButton } from "../../components/FavoriteButton/FavoriteButton";
 import { CartButton } from "../../components/CartButton/CartButton";
+import { ErrorScreen } from "../../components/ErrorScreen/ErrorScreen";
 
 export const Card = () => {
   const { productId } = useParams();
@@ -26,11 +27,7 @@ export const Card = () => {
 
   if (loading || !data) return <Loading />;
   if (error) {
-    return (
-      <Container>
-        <div>Ошибка: {error}</div>
-      </Container>
-    );
+    return <ErrorScreen error={error} />;
   }
 
   return (

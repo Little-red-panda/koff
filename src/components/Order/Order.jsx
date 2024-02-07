@@ -6,6 +6,7 @@ import s from "./Order.module.scss";
 import { Container } from "../../views/Container/Container";
 import { Loading } from "../Loading/Loading";
 import { fetchCart } from "../../store/cart/cart.slice";
+import { ErrorScreen } from "../../components/ErrorScreen/ErrorScreen";
 
 export const Order = () => {
   const { orderId } = useParams();
@@ -37,11 +38,7 @@ export const Order = () => {
   }
 
   if (error) {
-    return (
-      <Container>
-        <div>Ошибка: {error}</div>
-      </Container>
-    );
+    return <ErrorScreen error={error} />;
   }
 
   return (
